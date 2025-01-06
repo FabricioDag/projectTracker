@@ -1,8 +1,16 @@
-# React + Vite
+# Project Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- OK localStorage
+- OK armazenar tudo num state
+- OK remover projeto
+- OK ignorar análise de dados por enquanto
+- OK adicionar records corretamente
+- OK importar pomodoro
+// -------
+- criar session armazenas os minutos trabalhados na session
+- adicionar session Pomodoro aos records
+- editar records
+- remover records
 
-Currently, two official plugins are available:
+- editar project
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh

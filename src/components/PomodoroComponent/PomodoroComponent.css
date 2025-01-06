@@ -1,0 +1,9 @@
+.timerWrapper{
+    border: 2px solid red;
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    padding: 1rem;
+    color: white;
+    text-align: center;
+}

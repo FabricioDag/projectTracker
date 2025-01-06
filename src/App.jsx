@@ -1,83 +1,33 @@
 import { useState } from 'react'
-import { ModalProject, ProjectCard } from './components'
+import { ModalProject, ProjectCard, PomodoroComponent } from './components'
 import './App.css'
 
 
 function App() {
 
   const [timeFrame, setTimeFrame] = useState('daily')
-  const [isModalProjectOpen, setIsModalProjectOpen] = useState(false);
+  const timeFrames = ['daily', 'weekly', 'monthly'] // fazer loop nas opções
 
-  const [lastPeriod, setLastPeriod] = useState({inicio:'', fim:''})
-  const [actualPeriod, setActualPeriod] = useState({inicio:'', fim:''})
+  const [isModalProjectOpen, setIsModalProjectOpen] = useState(false);
 
   const [dataProjects, setDataProjects] = useState(() => {
     const storedProjects = localStorage.getItem('projects');
     return storedProjects ? JSON.parse(storedProjects) : [];
   });
 
-  const calcularPeriodoAnterior = (opcao) => { // calcula o ultimo periodo (ontem, semana passada, mes passado)
-    // fazer cache dos periodos
-    const hoje = new Date('2025-1-5');
-    alert(hoje)
-    
-    switch (opcao) {
-      case 'daily':
-        const ontem = new Date(hoje);
-        ontem.setDate(hoje.getDate() - 1);
-        return { inicio: ontem, fim: ontem };
-  
-      case 'weekly':
-        const inicioSemana = new Date(hoje);
-        const fimSemana = new Date(hoje);
-        const diaAtual = hoje.getDay(); // 0 = domingo, 6 = sábado
-        inicioSemana.setDate(hoje.getDate() - diaAtual - 6);
-        fimSemana.setDate(hoje.getDate() - diaAtual);
-        return { inicio: inicioSemana, fim: fimSemana };
-  
-      case 'monthly':
-        const inicioMes = new Date(hoje.getFullYear(), hoje.getMonth() - 1, 1);
-        const fimMes = new Date(hoje.getFullYear(), hoje.getMonth(), 0); // Último dia do mês anterior
-        return { inicio: inicioMes, fim: fimMes };
-  
-      default:
-        throw new Error('Opção inválida');
-    }
-  };
-
-  const calcularPeriodoAtual = (opcao) => { // calcula o periodo atual (hoje, semana atual, mes atual)
-    // fazer cache dos periodos
-    const hoje = new Date('2025-1-5');
-    switch (opcao) {
-      case 'daily':
-        return { inicio: hoje, fim: hoje };
-  
-      case 'weekly':
-        const diaAtual = hoje.getDay(); // 0 = domingo, 6 = sábado
-        const inicioSemana = new Date(hoje);
-        inicioSemana.setDate(hoje.getDate() - diaAtual);
-        return { inicio: inicioSemana, fim: hoje };
-  
-      case 'monthly':
-        const inicioMes = new Date(hoje.getFullYear(), hoje.getMonth(), 1);
-        return { inicio: inicioMes, fim: hoje };
-  
-      default:
-        throw new Error('Opção inválida');
-    }
-  }
-
-  const handleChangeTimeframe = (value) =>{
-    setTimeFrame(value)
-    setLastPeriod(calcularPeriodoAnterior(value))
-    setActualPeriod(calcularPeriodoAtual(value))
-  }
 
   const addProject = (project) => {
     const updatedProjects = [...dataProjects, project];
     setDataProjects(updatedProjects);
     localStorage.setItem('projects', JSON.stringify(updatedProjects));
   }
+
+  const deleteProject = (projectId) => {
+    const updatedProjects = dataProjects.filter((project) => project.id !== projectId);
+    setDataProjects(updatedProjects);
+    console.log(updatedProjects);
+    localStorage.setItem('projects', JSON.stringify(updatedProjects));
+  };
 
   const addRecord = (projectId, record) => {
     alert('chegou em addRecord')
@@ -101,9 +51,10 @@ function App() {
               return(
                  <ProjectCard 
                  key={index} 
-                 project={project} 
-                 lastPeriod={lastPeriod} 
-                 actualPeriod={actualPeriod} 
+                 project={project}
+                 deleteProject={deleteProject} 
+                //  lastPeriod={lastPeriod} 
+                //  actualPeriod={actualPeriod} 
                  timeFrame={timeFrame} 
                  addRecord={addRecord}
                  />
@@ -123,6 +74,8 @@ function App() {
         <button onClick={()=>handleChangeTimeframe('weekly')} className={timeFrame === 'weekly'? 'active': ''}>Weekly</button>
         <button onClick={()=>handleChangeTimeframe('monthly')} className={timeFrame === 'monthly'? 'active': ''}>Monthly</button>
       </div>
+
+      <PomodoroComponent></PomodoroComponent>
 
       {isModalProjectOpen &&
         <ModalProject 
