@@ -1,0 +1,48 @@
+[
+    { 
+      "id": 1,
+      "title": "projectTracker",
+      "color": "red",
+      "records": [
+        {
+          "date": "2024-12-25",
+          "minutes": 500
+        },
+        {
+          "date": "2024-12-24",
+          "minutes": 30
+        },
+        {
+          "date": "2025-1-3",
+          "minutes": 75
+        }	
+      ]
+    },
+    { 
+      "id": 2,
+      "title": "WebApp",
+      "color": "blue",
+      "records": [
+        {
+          "date": "2024-12-23",
+          "minutes": 70
+        }
+      ]
+    },
+    { 
+      "id": 3,  
+      "title": "GameDevelopment",
+      "color": "green",
+      "records": [
+        {
+          "date": "2024-12-22",
+          "minutes": 20
+        },
+        {
+          "date": "2024-12-21",
+          "minutes": 400
+        }
+      ]
+    }
+  ]
+  

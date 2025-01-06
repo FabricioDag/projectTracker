@@ -1,0 +1,72 @@
+body{
+    background-color: hsl(226, 43%, 10%);
+}
+
+
+
+.App{
+    position: relative;
+    height: 100vh;
+    font-family: "Rubik", serif;
+}
+
+.wrapperProjects{
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-rows: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+.addProjectCard{
+    width: 100%;
+    height: 100%;
+    border: 2px dashed hsl(235, 46%, 20%);	
+    display: grid;
+    place-content: center;
+    cursor: pointer;
+    opacity: .3;
+    transition: .3s ease;
+}
+
+.addProjectCard button{
+    background-color: hsl(235, 46%, 20%);
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 2rem;
+    cursor: pointer;
+    font-size: 1.2rem;
+    
+}
+
+.addProjectCard:hover {
+    opacity: 1;
+}
+
+.timeframesSelector{
+    display: flex;
+    position: fixed;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    border-radius: 2rem;
+    width: 300px;
+    background-color: hsl(235, 46%, 20%);
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    
+}
+
+.timeframesSelector button{
+    background-color: transparent;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: .3s ease;
+}
+
+.timeframesSelector button.active{
+    color: hsl(246, 80%, 60%);
+    
+}
