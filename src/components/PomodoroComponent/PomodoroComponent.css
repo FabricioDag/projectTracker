@@ -7,3 +7,9 @@
     color: white;
     text-align: center;
 }
+
+.progressBarTimer{
+    
+    height: 10px;
+    background-color: green;
+}

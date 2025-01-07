@@ -2,7 +2,7 @@ import './PomodoroComponent.css'
 
 import { useState,useEffect } from "react";
 
-const PomodoroComponent = () =>{
+const PomodoroComponent = ({addRecord, target}) =>{
 
     const [workTime, setWorkTime] = useState(
         () => Number(localStorage.getItem('workTime')) || 1500
@@ -22,6 +22,8 @@ const PomodoroComponent = () =>{
     const [cycleCount, setCycleCount] = useState(0);
 
     const [currentTimer, setCurrentTimer] = useState('work');
+
+    const [currentSession, setCurrentSession] = useState(0);
 
     // Salvando as configurações no localStorage
     useEffect(() => {
@@ -67,10 +69,12 @@ const PomodoroComponent = () =>{
     } else if (currentTimer == 'work' && cycleCount < cyclesBeforeLongBreak) {
       setCurrentTimer('shortBreak');
       setTime(shortBreakTime);
+      setCurrentSession(currentSession + workTime/60); // adiciona worktime ao session
     } else {
       setCurrentTimer('longBreak');
       setTime(longBreakTime);
       setCycleCount(-1); //gambiarra pra depois do longbreak o counter estar em 0
+      setCurrentSession(currentSession + workTime/60); // adiciona worktime ao session
     }
   };
 
@@ -80,7 +84,7 @@ const PomodoroComponent = () =>{
     if (isTimerRunning && time > 0) {
       interval = setInterval(() => {
         setTime(time - 1);
-      }, 1000);
+      }, 1);
 
       // ciclo termina dps de um intervalo
     } else if (time === 0) {
@@ -103,14 +107,42 @@ const PomodoroComponent = () =>{
     setIsTimerRunning(!isTimerRunning);
   };
 
+  const getTotalTime = () => {
+    if (currentTimer === 'work') {
+      return workTime;
+    } else if (currentTimer === 'shortBreak') {
+      return shortBreakTime;
+    } else {
+      return longBreakTime;
+    }
+  };
+
+  const totalTime = getTotalTime();
+
+  const handleEndSession = () => {
+    const newRecord = {
+      date: new Date().toISOString(),
+      minutes: currentSession,
+    };
+
+    addRecord(target, newRecord)
+    setCurrentSession(0)
+  }
+
     return(
         <div className='timerWrapper' onClick={handleClick}>
+        <p className="currentSession">CurrentSession: {currentSession}</p>
         <div className='timer'>
             <h1 className='timerValue'>{formatTime(time)}</h1>
             <p className='timerAction'>
               {isTimerRunning ? 'PAUSE' : 'PLAY'}
             </p>
           </div>
+
+          <div className="progressBarTimer"
+          style={{ width: ((totalTime - time) / totalTime) * 100 + '%' }}
+          ></div>
+          <button className="endSession" onClick={handleEndSession}>End Session</button>
         </div>
     )
 }

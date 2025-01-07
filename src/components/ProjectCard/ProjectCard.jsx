@@ -1,6 +1,6 @@
 import './ProjectCard.css';
 
-const ProjectCard = ({project, timeFrame,addRecord,deleteProject, lastPeriod, actualPeriod}) => {
+const ProjectCard = ({project, timeFrame,addRecord,deleteProject,deleteRecord, lastPeriod, actualPeriod}) => {
 
   // const calcularTempoPorPeriodo = (records, periodoFornecido) => {  
   //   return records.reduce((total, record) => {
@@ -15,20 +15,26 @@ const ProjectCard = ({project, timeFrame,addRecord,deleteProject, lastPeriod, ac
     // const lastWorkedHours = calcularTempoPorPeriodo(project.records, lastPeriod);
     // const actualWorkedHours = calcularTempoPorPeriodo(project.records, actualPeriod);
 
-    const handleClick = () => {
-      const newRecord = {
-        date: new Date().toISOString(),
-        minutes: Math.floor(Math.random() * 60),
-      };
+    // const handleClick = () => {
+    //   const newRecord = {
+    //     date: new Date().toISOString(),
+    //     minutes: Math.floor(Math.random() * 60),
+    //   };
 
-      addRecord(project.id, newRecord)
+    //   addRecord(project.id, newRecord)
+    // }
+
+    const handleDeleteRecord = (target) => {
+      deleteRecord(project.id, target)
     }
+
 
     return (
         <div className={`projectCard ${project.color}`}>
             <div className="projectCardHeader">
               <h2 className='projectCardTitle'>
-                {project.title}
+                {project.title}//
+                {project.id}
               </h2>
 
               <button onClick={()=>deleteProject(project.id)}>...</button>
@@ -51,6 +57,7 @@ const ProjectCard = ({project, timeFrame,addRecord,deleteProject, lastPeriod, ac
                     <div key={index} className='record'>
                       <p>{record.date}</p>
                       <p>{record.minutes} min</p>
+                      <button onClick={(e)=>handleDeleteRecord(e.target)}>Del</button>
                     </div>
                   )
                 })}
@@ -58,7 +65,7 @@ const ProjectCard = ({project, timeFrame,addRecord,deleteProject, lastPeriod, ac
 
             </div>
 
-            <button onClick={()=>handleClick()}>add random record</button>
+            {/* <button onClick={()=>handleClick()}>add random record</button> */}
           </div>
     );
     }

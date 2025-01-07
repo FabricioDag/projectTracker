@@ -7,8 +7,8 @@
 - OK adicionar records corretamente
 - OK importar pomodoro
 // -------
-- criar session armazenas os minutos trabalhados na session
-- adicionar session Pomodoro aos records
+- OK criar session armazenas os minutos trabalhados na session
+- OK adicionar session Pomodoro aos records
 - editar records
 - remover records
 

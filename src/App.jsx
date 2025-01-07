@@ -20,6 +20,8 @@ function App() {
     const updatedProjects = [...dataProjects, project];
     setDataProjects(updatedProjects);
     localStorage.setItem('projects', JSON.stringify(updatedProjects));
+
+    alert(updatedProjects);
   }
 
   const deleteProject = (projectId) => {
@@ -41,6 +43,18 @@ function App() {
     localStorage.setItem('projects', JSON.stringify(updatedProjects));
   }
 
+  const deleteRecord = (projectId, record) => {
+    alert('chegou em deleteRecord')
+    const updatedProjects = dataProjects.map(project => {
+      if (project.id === projectId) {
+        project.records.filter((record) => record !== record);
+      }
+      return project;
+    });
+    setDataProjects(updatedProjects);
+    localStorage.setItem('projects', JSON.stringify(updatedProjects));
+  }
+
   return (
     <div className="App">
       
@@ -53,6 +67,7 @@ function App() {
                  key={index} 
                  project={project}
                  deleteProject={deleteProject} 
+                 deleteRecord={deleteRecord}
                 //  lastPeriod={lastPeriod} 
                 //  actualPeriod={actualPeriod} 
                  timeFrame={timeFrame} 
@@ -75,7 +90,7 @@ function App() {
         <button onClick={()=>handleChangeTimeframe('monthly')} className={timeFrame === 'monthly'? 'active': ''}>Monthly</button>
       </div>
 
-      <PomodoroComponent></PomodoroComponent>
+      <PomodoroComponent addRecord={addRecord} target={4}/>
 
       {isModalProjectOpen &&
         <ModalProject 
