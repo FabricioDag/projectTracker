@@ -120,12 +120,13 @@ const PomodoroComponent = ({addRecord, target}) =>{
   const totalTime = getTotalTime();
 
   const handleEndSession = () => {
+    let alvo = window.prompt('A qual processo deseja aplicar a session?')
     const newRecord = {
       date: new Date().toISOString(),
       minutes: currentSession,
     };
 
-    addRecord(target, newRecord)
+    addRecord(parseInt(alvo), newRecord)
     setCurrentSession(0)
   }
 

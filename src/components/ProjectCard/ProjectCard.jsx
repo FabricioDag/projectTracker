@@ -24,8 +24,8 @@ const ProjectCard = ({project, timeFrame,addRecord,deleteProject,deleteRecord, l
     //   addRecord(project.id, newRecord)
     // }
 
-    const handleDeleteRecord = (target) => {
-      deleteRecord(project.id, target)
+    const handleDeleteRecord = (recordIndex) => {
+      deleteRecord(project.id, recordIndex)
     }
 
 
@@ -57,7 +57,7 @@ const ProjectCard = ({project, timeFrame,addRecord,deleteProject,deleteRecord, l
                     <div key={index} className='record'>
                       <p>{record.date}</p>
                       <p>{record.minutes} min</p>
-                      <button onClick={(e)=>handleDeleteRecord(e.target)}>Del</button>
+                      <button onClick={()=>handleDeleteRecord(index)}>Del</button>
                     </div>
                   )
                 })}

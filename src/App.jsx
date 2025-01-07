@@ -43,11 +43,11 @@ function App() {
     localStorage.setItem('projects', JSON.stringify(updatedProjects));
   }
 
-  const deleteRecord = (projectId, record) => {
+  const deleteRecord = (projectId, recordIndex) => {
     alert('chegou em deleteRecord')
     const updatedProjects = dataProjects.map(project => {
       if (project.id === projectId) {
-        project.records.filter((record) => record !== record);
+        project.records = project.records.filter((_, index) => index !== recordIndex);
       }
       return project;
     });

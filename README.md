@@ -9,8 +9,8 @@
 // -------
 - OK criar session armazenas os minutos trabalhados na session
 - OK adicionar session Pomodoro aos records
-- editar records
-- remover records
-
+- OK remover records
+// -------
+- editar records -> criar form para editar 
 - editar project
 
